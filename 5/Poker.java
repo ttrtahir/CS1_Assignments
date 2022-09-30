@@ -64,6 +64,7 @@ class Poker {
         return discard_cards(initialCards, remove_element_stringArray(cardsToDiscard, 0));
     }
 
+    // Exercise 2
     int index = 0;
 
     public void possible_hands(String[] cardsAvailable, String[] cardsOnHands) {
