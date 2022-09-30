@@ -47,14 +47,21 @@ class Poker {
 
     }
 
+    // Exercise 1
     public String[] discard_cards(String[] initialCards, String[] cardsToDiscard) {
         // stopper
         if (cardsToDiscard.length == 0) {
             return initialCards;
         }
-        // doer
 
-        return discard_cards(initialCards, cardsToDiscard);
+        // search for cards that in cardsToDiscard and initialCards
+        int initCardsLength = initialCards.length;
+        for (int i = 0; i < initCardsLength; i++)
+            if (initialCards[i].equals(cardsToDiscard[0]))
+                return discard_cards(remove_element_2DArray(initialCards, i),
+                        remove_element_2DArray(cardsToDiscard, 0));
+
+        return discard_cards(initialCards, remove_element_2DArray(cardsToDiscard, 0));
     }
 
     public void possible_hands(String[] cardsAvailable, String[] cardsOnHands) {
@@ -79,6 +86,24 @@ class Poker {
             newArray[elements] = newElement;
         } else
             newArray[0] = newElement;
+        return newArray;
+    }
+
+    // code related to Exercise 1
+    public static String[] remove_element_2DArray(String[] oldArray, int indexOfTheElement) {
+        int elements = oldArray.length;
+        String[] newArray = new String[elements - 1];
+        // if we found the card we want to discard, the right side should be 1 unit
+        // closer
+        int found = 0;
+        for (int i = 0; i < elements; i++) {
+            if (i == indexOfTheElement) {
+                found = 1;
+                continue;
+            } else {
+                newArray[i - found] = oldArray[i];
+            }
+        }
         return newArray;
     }
 
