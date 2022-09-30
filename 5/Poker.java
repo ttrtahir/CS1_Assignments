@@ -64,8 +64,35 @@ class Poker {
         return discard_cards(initialCards, remove_element_stringArray(cardsToDiscard, 0));
     }
 
+    // Exercise 2
+    int index = 0;
+
     public void possible_hands(String[] cardsAvailable, String[] cardsOnHands) {
         // Write your code below
+        // stopper
+        if (cardsOnHands.length == 5) {
+            System.out.println(Arrays.toString(cardsOnHands));
+            return;
+        }
+        ArrayList<String> cardsOnHandsList = Array2ArrayList(cardsOnHands);
+
+        int cardsAmount = cardsAvailable.length;
+        int handSizeMax = 5;
+
+        // issue: thinks the order matters :/
+        for (int i = index; i < cardsAmount; i++) {
+            boolean requirement = cardsAmount - i + 1 > handSizeMax - index;
+            if ((!cardsOnHandsList.contains(cardsAvailable[i])) && requirement) {
+                cardsOnHandsList.add(cardsAvailable[i]);
+                index++;
+                possible_hands(cardsAvailable, ArrayList2Array(cardsOnHandsList));
+            } else
+                continue;
+            cardsOnHandsList.remove(cardsOnHandsList.size() - 1);
+            index--;
+        }
+
+        return;
         // Write your code above
     }
 
