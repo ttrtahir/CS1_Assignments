@@ -58,10 +58,10 @@ class Poker {
         int initCardsLength = initialCards.length;
         for (int i = 0; i < initCardsLength; i++)
             if (initialCards[i].equals(cardsToDiscard[0]))
-                return discard_cards(remove_element_2DArray(initialCards, i),
-                        remove_element_2DArray(cardsToDiscard, 0));
+                return discard_cards(remove_element_stringArray(initialCards, i),
+                        remove_element_stringArray(cardsToDiscard, 0));
 
-        return discard_cards(initialCards, remove_element_2DArray(cardsToDiscard, 0));
+        return discard_cards(initialCards, remove_element_stringArray(cardsToDiscard, 0));
     }
 
     public void possible_hands(String[] cardsAvailable, String[] cardsOnHands) {
@@ -90,7 +90,7 @@ class Poker {
     }
 
     // code related to Exercise 1
-    public static String[] remove_element_2DArray(String[] oldArray, int indexOfTheElement) {
+    public static String[] remove_element_stringArray(String[] oldArray, int indexOfTheElement) {
         int elements = oldArray.length;
         String[] newArray = new String[elements - 1];
         // if we found the card we want to discard, the right side should be 1 unit
