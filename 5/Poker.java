@@ -13,7 +13,7 @@ class Poker {
     static String[][] opponent_combinations = new String[0][5];
 
     public static void main(String[] args) {
-        String[] cards = { "c2", "c3", "c4", "c5", "c6", "c7" };
+        String[] cards = { "c2", "c3", "c4", "c5", "c6", "c7", "c8" };
         Poker p = new Poker(); // This statement requires knowledge about Object-Oriented Programming (more in
                                // CS2)
         // Example to validate your implementation of method deleteCards
@@ -65,41 +65,94 @@ class Poker {
     }
 
     // Exercise 2
-    int index = 0;
-
     public void possible_hands(String[] cardsAvailable, String[] cardsOnHands) {
-        // Write your code below
         // stopper
         if (cardsOnHands.length == 5) {
-            add_element_2Darray(player_combinations, cardsOnHands);
+            player_combinations = add_element_2Darray(player_combinations, cardsOnHands);
             // System.out.println(Arrays.toString(cardsOnHands));
             return;
         }
         ArrayList<String> cardsOnHandsList = Array2ArrayList(cardsOnHands);
+        ArrayList<String> cardsAvailableList = Array2ArrayList(cardsAvailable);
 
         int cardsAmount = cardsAvailable.length;
-        int handSizeMax = 5;
+        int index = cardsOnHands.length;
+        int previousCardsIndexInAvailableCards = index - 1;
 
-        for (int i = index; i < cardsAmount; i++) {
-            boolean requirement = cardsAmount - i + 1 > handSizeMax - index;
-            if ((!cardsOnHandsList.contains(cardsAvailable[i])) && requirement) {
-                cardsOnHandsList.add(cardsAvailable[i]);
-                index++;
+        for (int newCardsIndex = index; newCardsIndex < cardsAmount; newCardsIndex++) {
+
+            if (index != 0)
+                previousCardsIndexInAvailableCards = cardsAvailableList.indexOf(cardsOnHands[index - 1]);
+
+            // this must be true because we want a sorted list
+            boolean requirement = newCardsIndex > previousCardsIndexInAvailableCards;
+
+            // add if the list doesnt contain the card and it maintains the requirement
+            if ((!cardsOnHandsList.contains(cardsAvailable[newCardsIndex])) && requirement) {
+                cardsOnHandsList.add(cardsAvailable[newCardsIndex]);
                 possible_hands(cardsAvailable, ArrayList2Array(cardsOnHandsList));
             } else
                 continue;
+            // remove last item
             cardsOnHandsList.remove(cardsOnHandsList.size() - 1);
-            index--;
+
+        }
+
+        return;
+    }
+
+    // Exercise 3
+    public void possible_hands_opponent(String[] cardsAvailable, String[] cardsOnCommunity, String[] cardsOnHands) {
+        // Write your code below
+        // stopper
+        if (cardsOnHands.length == 5) {
+            boolean communityUsedEnough = communityUsedChecker(cardsOnCommunity, cardsOnHands);
+            if (communityUsedEnough) {
+                opponent_combinations = add_element_2Darray(opponent_combinations, cardsOnHands);
+                // System.out.println(Arrays.toString(cardsOnHands));
+            }
+            return;
+        }
+        ArrayList<String> cardsOnHandsList = Array2ArrayList(cardsOnHands);
+        ArrayList<String> cardsAvailableList = Array2ArrayList(cardsAvailable);
+
+        int cardsAmount = cardsAvailable.length;
+        int index = cardsOnHands.length;
+        int previousCardsIndexInAvailableCards = index - 1;
+
+        for (int newCardsIndex = index; newCardsIndex < cardsAmount; newCardsIndex++) {
+
+            if (index != 0)
+                previousCardsIndexInAvailableCards = cardsAvailableList.indexOf(cardsOnHands[index - 1]);
+
+            // this must be true because we want a sorted list
+            boolean requirement = newCardsIndex > previousCardsIndexInAvailableCards;
+
+            if ((!cardsOnHandsList.contains(cardsAvailable[newCardsIndex])) && requirement) {
+                cardsOnHandsList.add(cardsAvailable[newCardsIndex]);
+                possible_hands_opponent(cardsAvailable, cardsOnCommunity, ArrayList2Array(cardsOnHandsList));
+            } else
+                continue;
+            cardsOnHandsList.remove(cardsOnHandsList.size() - 1);
         }
 
         return;
         // Write your code above
     }
 
-    public void possible_hands_opponent(String[] cardsAvailable, String[] cardsOnCommunity, String[] cardsOnHands) {
-        // Write your code below
-
-        // Write your code above
+    public static boolean communityUsedChecker(String[] cardsOnCommunity, String[] cardsOnHands) {
+        int counter = 0;
+        for (int i = 0; i < cardsOnHands.length; i++) {
+            for (int j = 0; j < cardsOnCommunity.length; j++) {
+                if (cardsOnHands[i].equals(cardsOnCommunity[j])) {
+                    counter++;
+                }
+            }
+        }
+        if (counter < 3)
+            return false;
+        else
+            return true;
     }
 
     // Method to add a new element into a 2D array (array of array of String)
