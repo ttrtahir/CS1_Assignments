@@ -10,8 +10,8 @@ public class ArrayAssignment {
 
         diagonalPrint(temp);
 
-        int[] A = { 0, 1, 1, 4, 0, 2, 0, 1, 0, 2 };
-        System.out.println(allNumsWithin(A, 5));
+        int[] A = { 1, 2, 3, 1, 1, 2, 1, 0, 1, 1, 1, 1, 0, 1, 1, 2, 2, 3, 1 };
+        System.out.println(allNumsWithin(A, 4));
     }
 
     // Exercise 2 without recursion
@@ -30,12 +30,11 @@ public class ArrayAssignment {
                     checker[A[j]] = true;
                     sum += A[j];
                 }
-                if (sum == sumMustBe)
-                    break;
+                if (sum == sumMustBe && checker[0])
+                    if (minStep > step)
+                        minStep = step;
             }
-            if (sum == sumMustBe && checker[0])
-                if (minStep > step)
-                    minStep = step;
+
         }
 
         if (minStep == 100000)
