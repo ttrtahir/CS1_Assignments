@@ -10,25 +10,46 @@ public class ArrayAssignment {
 
         diagonalPrint(temp);
 
-        int[] A = { 0, 2, 0, 2, 2, 1, 1, 0 };
-        allNumsWithin(A, 3);
+        int[] A = { 0, 1, 1, 4, 0, 2, 0, 1, 0, 2 };
+        System.out.println(allNumsWithin(A, 5));
     }
 
+    // Exercise 2 without recursion
     public static int allNumsWithin(int[] A, int k) {
 
         // int seqLength = ;
-        for (int i = 0; i < A.length - k; i++) {
-            int checker[] = new int[k];
-
+        int sumMustBe = (k * (k - 1)) / 2;
+        int minStep = 100000;
+        for (int i = 0; i < A.length; i++) {
+            boolean checker[] = new boolean[k];
+            int sum = 0;
+            int step = 0;
             for (int j = i; j < A.length; j++) {
-                if (checker[A[j]] == 0) {
-                    checker[A[j]] = 1;
+                step++;
+                if (checker[A[j]] == false) {
+                    checker[A[j]] = true;
+                    sum += A[j];
                 }
+                if (sum == sumMustBe)
+                    break;
             }
+            if (sum == sumMustBe && checker[0])
+                if (minStep > step)
+                    minStep = step;
         }
+
+        if (minStep == 100000)
+            return 0;
+        return minStep;
+    }
+
+    // Exercise 2 with recursion
+    public static int allNumsWithinRecursion(int[] A, int k) {
+
         return 0;
     }
 
+    // Exercise 1
     public static void diagonalPrint(int[][] M) {
 
         int rowCount = M.length;
