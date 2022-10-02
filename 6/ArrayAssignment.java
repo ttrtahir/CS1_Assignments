@@ -9,8 +9,8 @@ public class ArrayAssignment {
 
         diagonalPrint(temp);
 
-        int[] A = { 1, 2, 3, 1, 1, 2, 1, 0, 1, 1, 1, 1, 0, 1, 1, 2, 2, 3, 1 };
-        System.out.println(allNumsWithin(A, 4));
+        int[] A = { 9, 1, 2, 3, 4, 5, 6, 5, 0, 1, 2, 3, 5, 7, 1, 1, 2, 2, 3, 1, 8 };
+        System.out.println(allNumsWithin(A, 6));
     }
 
     // Exercise 2 without recursion
@@ -18,21 +18,22 @@ public class ArrayAssignment {
 
         int sumMustBe = (k * (k - 1)) / 2;
         int minStep = 100000;
-        for (int i = 0; i < A.length; i++) {
+        for (int startingPoint = 0; startingPoint < A.length; startingPoint++) {
             boolean checker[] = new boolean[10];
             int sum = 0;
             int step = 0;
-            for (int j = i; j < A.length; j++) {
+            for (int followingNumberIndex = startingPoint; followingNumberIndex < A.length; followingNumberIndex++) {
                 step++;
-                if (checker[A[j]] == false) {
-                    checker[A[j]] = true;
-                    sum += A[j];
+                int followingNumberValue = A[followingNumberIndex];
+                // If I haven't used it before, label as it is used and add it to the sum
+                if (checker[followingNumberValue] == false && followingNumberValue < k) {
+                    checker[followingNumberValue] = true;
+                    sum += followingNumberValue;
                 }
                 if (sum == sumMustBe && checker[0])
                     if (minStep > step)
                         minStep = step;
             }
-
         }
 
         if (minStep == 100000)
