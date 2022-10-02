@@ -71,7 +71,8 @@ class Poker {
         // Write your code below
         // stopper
         if (cardsOnHands.length == 5) {
-            System.out.println(Arrays.toString(cardsOnHands));
+            add_element_2Darray(player_combinations, cardsOnHands);
+            // System.out.println(Arrays.toString(cardsOnHands));
             return;
         }
         ArrayList<String> cardsOnHandsList = Array2ArrayList(cardsOnHands);
@@ -79,7 +80,6 @@ class Poker {
         int cardsAmount = cardsAvailable.length;
         int handSizeMax = 5;
 
-        // issue: thinks the order matters :/
         for (int i = index; i < cardsAmount; i++) {
             boolean requirement = cardsAmount - i + 1 > handSizeMax - index;
             if ((!cardsOnHandsList.contains(cardsAvailable[i])) && requirement) {
