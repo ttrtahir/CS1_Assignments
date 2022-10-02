@@ -65,8 +65,6 @@ class Poker {
     }
 
     // Exercise 2
-    int index = 0;
-
     public void possible_hands(String[] cardsAvailable, String[] cardsOnHands) {
         // Write your code below
         // stopper
@@ -78,6 +76,7 @@ class Poker {
         ArrayList<String> cardsOnHandsList = Array2ArrayList(cardsOnHands);
 
         int cardsAmount = cardsAvailable.length;
+        int index = cardsOnHands.length;
         int handSizeMax = 5;
 
         for (int i = index; i < cardsAmount; i++) {
@@ -85,12 +84,11 @@ class Poker {
             boolean requirement = cardsAmount - i + 1 > handSizeMax - index;
             if ((!cardsOnHandsList.contains(cardsAvailable[i])) && requirement) {
                 cardsOnHandsList.add(cardsAvailable[i]);
-                index++;
                 possible_hands(cardsAvailable, ArrayList2Array(cardsOnHandsList));
             } else
                 continue;
             cardsOnHandsList.remove(cardsOnHandsList.size() - 1);
-            index--;
+
         }
 
         return;
@@ -98,8 +96,6 @@ class Poker {
     }
 
     // Exercise 3
-    int index2 = 0; // :/
-
     public void possible_hands_opponent(String[] cardsAvailable, String[] cardsOnCommunity, String[] cardsOnHands) {
         // Write your code below
         // stopper
@@ -115,19 +111,18 @@ class Poker {
         ArrayList<String> cardsOnHandsList = Array2ArrayList(cardsOnHands);
 
         int cardsAmount = cardsAvailable.length;
+        int index = cardsOnHands.length;
         int handSizeMax = 5;
 
-        for (int i = index2; i < cardsAmount; i++) {
+        for (int i = index; i < cardsAmount; i++) {
             // requirement eliminates basicly the ones that are not sorted
-            boolean requirement = cardsAmount - i + 1 > handSizeMax - index2;
+            boolean requirement = cardsAmount - i + 1 > handSizeMax - index;
             if ((!cardsOnHandsList.contains(cardsAvailable[i])) && requirement) {
                 cardsOnHandsList.add(cardsAvailable[i]);
-                index2++;
                 possible_hands_opponent(cardsAvailable, cardsOnCommunity, ArrayList2Array(cardsOnHandsList));
             } else
                 continue;
             cardsOnHandsList.remove(cardsOnHandsList.size() - 1);
-            index2--;
         }
 
         return;
