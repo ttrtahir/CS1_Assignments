@@ -16,11 +16,10 @@ public class ArrayAssignment {
     // Exercise 2 without recursion
     public static int allNumsWithin(int[] A, int k) {
 
-        // int seqLength = ;
         int sumMustBe = (k * (k - 1)) / 2;
         int minStep = 100000;
         for (int i = 0; i < A.length; i++) {
-            boolean checker[] = new boolean[k];
+            boolean checker[] = new boolean[10];
             int sum = 0;
             int step = 0;
             for (int j = i; j < A.length; j++) {
@@ -45,12 +44,6 @@ public class ArrayAssignment {
     public static int allNumsWithinRecursion(int[] A, int k) {
 
         return 0;
-    }
-
-    public static int minimum(int a, int b) {
-        if (a > b)
-            return b;
-        return a;
     }
 
     // Exercise 1
