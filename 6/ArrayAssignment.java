@@ -3,9 +3,8 @@ public class ArrayAssignment {
     public static void main(String[] args) {
         int[][] temp = {
                 { 1, 2, 3, 4 },
-                { 2, 3, 4, 5 },
-                { 3, 4, 5, 6 },
-                { 4, 5, 6, 7 }
+                { 5, 6, 7, 8 },
+                { 9, 10, 11, 12 },
         };
 
         diagonalPrint(temp);
@@ -48,17 +47,29 @@ public class ArrayAssignment {
         return 0;
     }
 
+    public static int minimum(int a, int b) {
+        if (a > b)
+            return b;
+        return a;
+    }
+
     // Exercise 1
     public static void diagonalPrint(int[][] M) {
 
-        int rowCount = M.length;
-        int columnCount = M[0].length;
-        for (int i = 0; i <= rowCount + columnCount - 2; i++) {
-            int tempMax = ((rowCount - 1) < i ? rowCount - 1 : i);
-            for (int j = tempMax; j >= i - tempMax; j--) {
-                System.out.print(M[j][i - j]);
-                System.out.print(" ");
+        int rowMax = M.length;
+        int columnMax = M[0].length;
+
+        for (int sumOfUnitsPlaces = 0; sumOfUnitsPlaces <= rowMax + columnMax - 2; sumOfUnitsPlaces++) {
+            int minimumValue = ((rowMax - 1) < sumOfUnitsPlaces ? rowMax - 1 : sumOfUnitsPlaces);
+            for (int row = minimumValue; row >= 0; row--) {
+                int column = sumOfUnitsPlaces - row;
+                if (column >= columnMax)
+                    break;
+                System.out.print(M[row][column] + " ");
             }
+            // System.out.println("");
         }
+
+        return;
     }
 }
